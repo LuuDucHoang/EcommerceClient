@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-
+import { useEffect, useState } from 'react';
 //import component
 import Button from '~/components/Button';
 
@@ -14,6 +14,16 @@ import castImg from '~/Stactic/images/shopping.png';
 
 const cx = classNames.bind(style);
 function Header() {
+    const [data, setData] = useState();
+    useEffect(() => {
+        const aa = async () => {
+            await fetch('/api/customer')
+                .then((res) => res.json())
+                .then((datas) => setData(datas));
+        };
+        aa();
+    }, []);
+    console.log(data);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('upper')}>
