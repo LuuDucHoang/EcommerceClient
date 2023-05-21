@@ -17,6 +17,9 @@ function Button({
     rightIcon,
     children,
     onClick,
+    blue,
+    textWhite,
+    sandybrownColor,
     ...passProps
 }) {
     let Comp = 'button';
@@ -42,9 +45,12 @@ function Button({
     const classes = cx('wrapper', {
         outline,
         small,
+        blue,
         large,
         disable,
         rounded,
+        textWhite,
+        sandybrownColor,
         [className]: className,
     });
     return (

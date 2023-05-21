@@ -1,0 +1,38 @@
+.banner {
+    padding: 97px 0px 0px 0px;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 100%;
+    min-height: 698px;
+}
+.container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1140px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.bannerText {
+    max-width: 730px;
+}
+.textBannerHeader {
+    color: #f2c119;
+    font-size: 11.6rem;
+    line-height: 120px;
+    padding-bottom: 50px;
+    font-weight: 400;
+    display: flex;
+    flex-direction: column;
+}
+.blodark {
+    color: #183661;
+    font-weight: 500;
+    font-size: 8.5rem;
+}
+.textBannerD {
+    font-weight: 500;
+    color: #2a2a2c;
+    line-height: 30px;
+    font-size: 3.3rem;
+    margin-bottom: 50px;
+}

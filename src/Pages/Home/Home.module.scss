@@ -1,0 +1,30 @@
+.Wrapper {
+    background-size: 100% 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    padding: 90px 0 30px 0;
+}
+.container {
+    height: 1393px;
+    width: 1150px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.Header {
+    margin-bottom: 40px;
+    padding-bottom: 10px;
+    border-bottom: #f2c119 solid 5px;
+}
+.title {
+    font-size: 3.5rem;
+    font-weight: 700;
+}
+.Main {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+.Banner2 {
+    height: 744px;
+    width: 100%;
+}

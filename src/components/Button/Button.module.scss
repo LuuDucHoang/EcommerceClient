@@ -72,3 +72,27 @@
     min-width: 140px;
     padding: 14px 16px;
 }
+.blue {
+    font-weight: 500;
+    background: #1d37fd;
+    color: #fff !important;
+    border-radius: 43px;
+    margin-right: 25px;
+    padding: 13px 0;
+    max-width: 210px;
+    text-transform: uppercase;
+    width: 100%;
+    outline: none;
+    border-color: transparent;
+    &:hover {
+        background: #fcc10e;
+        color: #000 !important;
+        transition: ease-in all 0.5s;
+    }
+}
+.sandybrownColor {
+    background-color: sandybrown;
+}
+.textWhite {
+    color: white;
+}

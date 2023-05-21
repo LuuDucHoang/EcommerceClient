@@ -1,0 +1,30 @@
+.sixBoxWrapper {
+    height: 216px;
+    width: 100%;
+    display: flex;
+}
+.itemBox {
+    height: 216px;
+    width: 17%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.item {
+    height: 84px;
+    width: 99px;
+}
+.yellow {
+    background: #f2c119;
+}
+.darkBlue {
+    background: #183661;
+}
+.itemName {
+    color: #fff;
+    font-size: 17px;
+    line-height: 32px;
+    text-transform: uppercase;
+    font-weight: bold;
+}

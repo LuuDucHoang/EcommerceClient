@@ -1,0 +1,35 @@
+.bb {
+    background: #f2f2f2;
+    height: 257px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+.productItem {
+    text-decoration: none;
+    width: 17.3%;
+    margin: 0 15px 30px 15px;
+}
+.productImage {
+    max-width: 100%;
+    height: auto;
+}
+.productDes {
+}
+.productName {
+    color: #1c1c1b;
+    font-size: 1.5rem;
+    line-height: 20px;
+    padding: 22px 0px 0px 0px;
+    text-align: left;
+}
+.productDetail {
+    padding-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.productPrice {
+    font-size: 1.5rem;
+}
