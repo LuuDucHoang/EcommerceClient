@@ -2,8 +2,8 @@ import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 
 //import component
-import Banner from '~/Layouts/Components/Banner/Banner';
-import SixBox from '~/Layouts/Components/Box/sixBox';
+import Banner from '~/components/Banner';
+import SixBox from '~/components/Box';
 import ProductItem from '~/components/productItem';
 import News from '~/components/News';
 //import Img, style
