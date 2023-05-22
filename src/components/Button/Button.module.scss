@@ -92,6 +92,9 @@
 }
 .sandybrownColor {
     background-color: sandybrown;
+    &:hover {
+        opacity: 0.8;
+    }
 }
 .textWhite {
     color: white;

@@ -2,10 +2,8 @@ import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { useEffect, useState } from 'react';
 //import component
 import Button from '~/components/Button';
-
 // import img
 import style from './Header.nmodule.scss';
 import emailImg from '~/Stactic/images/email.png';
@@ -14,16 +12,6 @@ import castImg from '~/Stactic/images/shopping.png';
 
 const cx = classNames.bind(style);
 function Header() {
-    const [data, setData] = useState();
-    useEffect(() => {
-        const aa = async () => {
-            await fetch('/api/customer')
-                .then((res) => res.json())
-                .then((datas) => setData(datas));
-        };
-        aa();
-    }, []);
-    console.log(data);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('upper')}>
@@ -39,7 +27,9 @@ function Header() {
                         <img src={castImg} alt="castImage" className={cx('castImage')}></img>
                     </div>
                     <div className={cx('singInBtn')}>
-                        <Button rounded>Sign in</Button>
+                        <Button to={'/loginform'} rounded>
+                            Sign in
+                        </Button>
                     </div>
                 </div>
             </div>
@@ -52,9 +42,7 @@ function Header() {
                             </Link>
                         </div>
                         <div>
-                            <Link className={cx('navItem')} to="/">
-                                About
-                            </Link>
+                            <Link className={cx('navItem')}>About</Link>
                         </div>
                         <div>
                             <Link className={cx('navItem')} to="/">

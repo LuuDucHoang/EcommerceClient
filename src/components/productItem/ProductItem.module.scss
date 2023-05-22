@@ -1,3 +1,7 @@
+.wrapper {
+    width: 17.3%;
+    margin: 0 15px 30px 15px;
+}
 .bb {
     background: #f2f2f2;
     height: 257px;
@@ -8,12 +12,13 @@
 }
 .productItem {
     text-decoration: none;
-    width: 17.3%;
-    margin: 0 15px 30px 15px;
 }
 .productImage {
     max-width: 100%;
     height: auto;
+    &:hover {
+        opacity: 0.5;
+    }
 }
 .productDes {
 }
@@ -23,6 +28,9 @@
     line-height: 20px;
     padding: 22px 0px 0px 0px;
     text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 .productDetail {
     padding-top: 10px;

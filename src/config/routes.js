@@ -1,9 +1,5 @@
 const routes = {
     home: '/',
-    allfilm: '/list/:type',
-    detail: '/:type/:id',
-    watchMovie: 'watch/:type/:id',
-    search: '/search/:keyword',
-    topList: '/toplist',
+    form: '/loginform',
 };
 export default routes;
