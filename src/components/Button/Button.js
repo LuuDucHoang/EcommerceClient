@@ -19,6 +19,7 @@ function Button({
     onClick,
     blue,
     textWhite,
+    ml5,
     sandybrownColor,
     ...passProps
 }) {
@@ -50,6 +51,7 @@ function Button({
         disable,
         rounded,
         textWhite,
+        ml5,
         sandybrownColor,
         [className]: className,
     });

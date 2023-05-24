@@ -1,34 +1,45 @@
 import { useState } from 'react';
-import { postProductList, productList } from '~/services/productListService';
 import classNames from 'classnames/bind';
 import { Link, useNavigate } from 'react-router-dom';
 //import component
 import Button from '~/components/Button';
 //import style,
-import style from './LoginForm.module.scss';
+import style from './RegisterForm.module.scss';
 import productBGImage from '~/Stactic/images/product_bg.jpg';
-import { loginUser } from '~/redux/apiRequest';
+import { registerUser } from '~/redux/apiRequest';
 import { useDispatch } from 'react-redux';
 
 const cx = classNames.bind(style);
-function Form() {
+function RegisterForm() {
+    const [name, setName] = useState('');
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const dispath = useDispatch();
     const navigate = useNavigate();
-    const handleLogin = (e) => {
+    const handleRegister = (e) => {
         e.preventDefault();
         const newUser = {
+            name,
             userName,
             password,
         };
-        loginUser(newUser, dispath, navigate);
+        const handle = async () => {
+            const x = await registerUser(newUser, dispath, navigate);
+            console.log(x);
+        };
+        handle();
     };
     return (
         <div className={cx('Wrapper')} style={{ backgroundImage: `url('${productBGImage}')` }}>
-            <form onSubmit={handleLogin} className={cx('container')}>
+            <form onSubmit={handleRegister} className={cx('container')}>
                 <div className={cx('loginForm')}>
-                    <h2 className={cx('header')}>Sign into your account</h2>
+                    <h2 className={cx('header')}>Sign up your account</h2>
+                    <input
+                        onChange={(e) => setName(e.target.value)}
+                        value={name}
+                        className={cx('name')}
+                        placeholder=" Enter Name"
+                    ></input>
                     <input
                         onChange={(e) => setUserName(e.target.value)}
                         value={userName}
@@ -43,13 +54,13 @@ function Form() {
                         type="password"
                     ></input>
                     <div className={cx('loginBtn')}>
-                        <Button>LOGIN</Button>
+                        <Button>Create</Button>
                     </div>
                     <span className={cx('registerTex')}>
-                        Don't have an account?
-                        <Link to={'/registerform'} className={cx('registerLink')}>
+                        You already owned an account?
+                        <Link to={'/loginform'} className={cx('registerLink')}>
                             {' '}
-                            Register here
+                            Login here
                         </Link>
                     </span>
                 </div>
@@ -58,4 +69,4 @@ function Form() {
     );
 }
 
-export default Form;
+export default RegisterForm;
