@@ -14,35 +14,69 @@ const cx = classNames.bind(style);
 function Form() {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
+    const [errUserName, setErrUserName] = useState('');
+    const [errPassword, setErrPassword] = useState('');
+    const [err, setErr] = useState('');
     const dispath = useDispatch();
     const navigate = useNavigate();
-    const handleLogin = (e) => {
+
+    const handleClearMessage = () => {
+        setErrUserName('');
+        setErrPassword('');
+        setErr('');
+    };
+    const handleValidate = () => {
+        let errCount = 0;
+        if (!userName) {
+            errCount++;
+            setErrUserName('Vui lòng nhập tên đăng nhập');
+        }
+        if (!password) {
+            errCount++;
+            setErrPassword('Vui lòng nhập mật khẩu');
+        }
+        return errCount;
+    };
+    const handleLogin = async (e) => {
         e.preventDefault();
+        handleClearMessage();
+        const errCount = handleValidate();
         const newUser = {
             userName,
             password,
         };
-        loginUser(newUser, dispath, navigate);
+        if (errCount === 0) {
+            const a = await loginUser(newUser, dispath, navigate);
+            setErr(a);
+        }
     };
     return (
         <div className={cx('Wrapper')} style={{ backgroundImage: `url('${productBGImage}')` }}>
             <form onSubmit={handleLogin} className={cx('container')}>
                 <div className={cx('loginForm')}>
                     <h2 className={cx('header')}>Sign into your account</h2>
-                    <input
-                        onChange={(e) => setUserName(e.target.value)}
-                        value={userName}
-                        className={cx('userName')}
-                        placeholder=" Enter User Name"
-                    ></input>
-                    <input
-                        onChange={(e) => setPassword(e.target.value)}
-                        value={password}
-                        className={cx('password')}
-                        placeholder="Enter Password"
-                        type="password"
-                    ></input>
+                    <div className={cx('input')}>
+                        <input
+                            onChange={(e) => setUserName(e.target.value)}
+                            value={userName}
+                            className={cx('userName')}
+                            placeholder=" Enter User Name"
+                        ></input>
+                        {errUserName && <span className={cx('err')}>{errUserName} </span>}
+                    </div>
+                    <div className={cx('input')}>
+                        <input
+                            onChange={(e) => setPassword(e.target.value)}
+                            value={password}
+                            className={cx('password')}
+                            placeholder="Enter Password"
+                            type="password"
+                        ></input>
+                        {errPassword && <span className={cx('err')}>{errPassword} </span>}
+                    </div>
+                    <span></span>
                     <div className={cx('loginBtn')}>
+                        {err && <span className={cx('err')}>{err}</span>}
                         <Button>LOGIN</Button>
                     </div>
                     <span className={cx('registerTex')}>

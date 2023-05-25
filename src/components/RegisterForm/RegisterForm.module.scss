@@ -27,6 +27,16 @@
 .header {
     font-size: 3rem;
 }
+.input {
+    width: 70%;
+}
+.err {
+    display: block;
+    margin-top: 8px;
+    margin-bottom: 4px;
+    font-size: 12px;
+    color: red;
+}
 .userName {
     border-color: transparent;
     border-radius: 6px;
@@ -34,7 +44,7 @@
     padding: 2px 6px;
     font-size: 1.8rem;
     height: 45px;
-    width: 70%;
+    width: 100%;
 }
 .password {
     border-color: transparent;
@@ -43,7 +53,7 @@
     padding: 2px 6px;
     font-size: 1.8rem;
     height: 45px;
-    width: 70%;
+    width: 100%;
 }
 .loginBtn {
 }
@@ -64,5 +74,5 @@
     padding: 2px 6px;
     font-size: 1.8rem;
     height: 45px;
-    width: 70%;
+    width: 100%;
 }

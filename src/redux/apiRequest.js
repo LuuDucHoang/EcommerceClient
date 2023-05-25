@@ -18,6 +18,7 @@ export const loginUser = async (user, dispath, navigate) => {
         navigate('/');
     } catch (error) {
         dispath(loginFailed());
+        return error.response.data;
     }
 };
 
