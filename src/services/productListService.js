@@ -23,6 +23,26 @@ export const searchServices = async (name, limit = 5) => {
     }
 };
 
+export const getDetailService = async (id) => {
+    try {
+        const res = await httpRequest.get(`api/product/${id}`);
+        return res;
+    } catch (error) {
+        console.log(error);
+        return error.respone;
+    }
+};
+
+export const getSimlarlService = async (type) => {
+    try {
+        const res = await httpRequest.get(`api/smilar/${type}`);
+        return res;
+    } catch (error) {
+        console.log(error);
+        return error.respone;
+    }
+};
+
 export const postProductList = async (data, options) => {
     try {
         const res = await httpRequest.post('api/product/post', data, options);

@@ -9,8 +9,17 @@ import style from './ProductItem.module.scss';
 const cx = classNames.bind(style);
 function ProductItem({ data, m0, index, df, w100, h117, w117, bg, w50 }) {
     return (
-        <div className={cx('wrapper', { w100, bg, m0 })} key={index}>
-            <Link style={{ display: 'block' }} to={'/'} className={cx('productItem', { df })}>
+        <div
+            onClick={() => {
+                window.scroll({
+                    top: '0',
+                    behavior: 'smooth',
+                });
+            }}
+            className={cx('wrapper', { w100, bg, m0 })}
+            key={index}
+        >
+            <Link style={{ display: 'block' }} to={`/${data._id}/${data.type}`} className={cx('productItem', { df })}>
                 <div className={cx('bb', { w117, h117 })}>
                     <img className={cx('productImage')} alt=" productImage" src={data.image}></img>
                 </div>
