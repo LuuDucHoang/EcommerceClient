@@ -5,17 +5,16 @@ import Button from '~/components/Button';
 
 //import Style,image
 import style from './ProductItem.module.scss';
-import productImg from '~/Stactic/images/shoes1.png';
 
 const cx = classNames.bind(style);
-function ProductItem({ data, index }) {
+function ProductItem({ data, m0, index, df, w100, h117, w117, bg, w50 }) {
     return (
-        <div className={cx('wrapper')} key={index}>
-            <Link style={{ display: 'block' }} to={'/'} className={cx('productItem')}>
-                <div className={cx('bb')}>
+        <div className={cx('wrapper', { w100, bg, m0 })} key={index}>
+            <Link style={{ display: 'block' }} to={'/'} className={cx('productItem', { df })}>
+                <div className={cx('bb', { w117, h117 })}>
                     <img className={cx('productImage')} alt=" productImage" src={data.image}></img>
                 </div>
-                <div className={cx('productDes')}>
+                <div className={cx('productDes', { w50 })}>
                     <h3 className={cx('productName')}>{data.name}</h3>
                     <div className={cx('productDetail')}>
                         <p className={cx('productPrice')}>${data.price}</p>

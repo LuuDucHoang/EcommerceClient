@@ -16,6 +16,7 @@ import castImg from '~/Stactic/images/shopping.png';
 import { useSelector } from 'react-redux';
 import { loginSuccess, logoutSuccess } from '~/redux/authSlice';
 import { logOut } from '~/redux/apiRequest';
+import Search from '~/components/Search/Search';
 
 const cx = classNames.bind(style);
 function Header() {
@@ -99,12 +100,7 @@ function Header() {
                             </Link>
                         </div>
                     </nav>
-                    <div className={cx('searchInputWrapper')}>
-                        <input className={cx('searchInput')} placeholder="Search"></input>
-                        <div className={cx('searchIcon')}>
-                            <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
-                        </div>
-                    </div>
+                    <Search></Search>
                 </div>
             </div>
         </div>

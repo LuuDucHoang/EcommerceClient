@@ -8,6 +8,20 @@ export const productList = async () => {
         console.log(error);
     }
 };
+export const searchServices = async (name, limit = 5) => {
+    try {
+        const res = await httpRequest.get('api/product', {
+            params: {
+                name,
+                limit,
+            },
+        });
+        return res;
+    } catch (error) {
+        console.log(error);
+        return error.respone.data;
+    }
+};
 
 export const postProductList = async (data, options) => {
     try {
