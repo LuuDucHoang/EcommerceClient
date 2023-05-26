@@ -1,6 +1,8 @@
 import classNames from 'classnames/bind';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 //import component
 import Button from '~/components/Button';
 import ProductItem from '~/components/productItem';
@@ -14,7 +16,14 @@ function Detail() {
     const [detail, setDetail] = useState();
     const [smilar, setSmilar] = useState([]);
     const [size, setSize] = useState();
+    const [number, setNumber] = useState(1);
     const { id, type } = useParams();
+    const increase = () => {
+        setNumber(number + 1);
+    };
+    const decrease = () => {
+        setNumber(number - 1);
+    };
     useEffect(() => {
         const fethApi = async () => {
             const data = await getDetailService(id);
@@ -24,7 +33,6 @@ function Detail() {
         };
         const fethSmilar = async () => {
             const smilars = await getSimlarlService(type);
-            console.log(smilars);
             if (smilars) {
                 setSmilar([...smilars.data]);
             }
@@ -52,7 +60,23 @@ function Detail() {
                         </div>
                         <h4 className={cx('productStatus')}>ProductStatus: {detail?.status}</h4>
                         <h4 className={cx('productType')}>Products Type: {detail?.type}</h4>
-                        <p className={cx('productDes')}>{detail?.description}</p>
+                        <h3 className={cx('quantityHeader')}>Quantity</h3>
+                        <div className={cx('quantityInput')}>
+                            {number === 1 ? (
+                                <button className={cx('decreaseBtn', { disable: 'disale' })}>
+                                    <FontAwesomeIcon icon={faMinus}></FontAwesomeIcon>
+                                </button>
+                            ) : (
+                                <button onClick={decrease} className={cx('decreaseBtn')}>
+                                    <FontAwesomeIcon icon={faMinus}></FontAwesomeIcon>
+                                </button>
+                            )}
+                            <input value={number} onChange={() => {}} className={cx('increaseInput')}></input>
+                            <button onClick={increase} className={cx('increaseBtn')}>
+                                <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
+                            </button>
+                        </div>
+                        <p className={cx('productDes')}>Description: {detail?.description}</p>
                         <Button sandybrownColor textWhite>
                             Thêm vào giỏ hàng
                         </Button>
