@@ -1,9 +1,5 @@
 import classNames from 'classnames/bind';
 import { Link, useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import axios from 'axios';
-import jwtDecode from 'jwt-decode';
 import { useDispatch } from 'react-redux';
 //import component
 import Button from '~/components/Button';

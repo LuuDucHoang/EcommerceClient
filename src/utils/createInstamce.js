@@ -15,7 +15,6 @@ export const createAxios = (user, dispath, stateSuccess) => {
     newInstance.interceptors.request.use(
         async (config) => {
             let date = new Date();
-            console.log(config.url);
             const decodedToken = jwtDecode(user?.accessToken);
             if (decodedToken.exp < date.getTime() / 1000) {
                 const data = await refreshToken();

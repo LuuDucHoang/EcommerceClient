@@ -9,6 +9,7 @@ import {
     registerStart,
     registerSuccess,
 } from './authSlice';
+import { getCartFailed, getCartStart, getCartSuccess } from './cartSlice';
 
 export const loginUser = async (user, dispath, navigate) => {
     dispath(loginStart());
@@ -49,5 +50,20 @@ export const logOut = async (dispath, id, navigate, accessToken, axiosJWT) => {
         navigate('/');
     } catch (error) {
         dispath(loginFailed());
+    }
+};
+
+// cart
+export const getCart = async (dispath, id, navigate, accessToken, axiosJWT) => {
+    dispath(getCartStart());
+    try {
+        const res = await axiosJWT.get(`api/cart/getcart/${id}`, {
+            headers: { token: `Bearer ${accessToken}` },
+        });
+        dispath(getCartSuccess(res.data));
+
+        return res.data;
+    } catch (error) {
+        dispath(getCartFailed());
     }
 };
