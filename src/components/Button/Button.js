@@ -20,6 +20,10 @@ function Button({
     blue,
     textWhite,
     ml5,
+    w100,
+    bgRed,
+    op05,
+    mt15,
     sandybrownColor,
     ...passProps
 }) {
@@ -52,6 +56,10 @@ function Button({
         rounded,
         textWhite,
         ml5,
+        w100,
+        bgRed,
+        mt15,
+        op05,
         sandybrownColor,
         [className]: className,
     });

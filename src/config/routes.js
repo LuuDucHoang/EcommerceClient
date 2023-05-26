@@ -3,5 +3,6 @@ const routes = {
     form: '/loginform',
     register: '/registerform',
     detail: '/:id/:type',
+    cart: '/cart',
 };
 export default routes;

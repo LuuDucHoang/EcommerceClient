@@ -7,6 +7,7 @@ import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import Button from '~/components/Button';
 import ProductItem from '~/components/productItem';
 import { getDetailService, getSimlarlService } from '~/services/productListService';
+import Quantity from '~/components/Quantity';
 // import style,img
 import style from './Detail.module.scss';
 import productBGImage from '~/Stactic/images/product_bg.jpg';
@@ -16,14 +17,8 @@ function Detail() {
     const [detail, setDetail] = useState();
     const [smilar, setSmilar] = useState([]);
     const [size, setSize] = useState();
-    const [number, setNumber] = useState(1);
     const { id, type } = useParams();
-    const increase = () => {
-        setNumber(number + 1);
-    };
-    const decrease = () => {
-        setNumber(number - 1);
-    };
+
     useEffect(() => {
         const fethApi = async () => {
             const data = await getDetailService(id);
@@ -61,21 +56,7 @@ function Detail() {
                         <h4 className={cx('productStatus')}>ProductStatus: {detail?.status}</h4>
                         <h4 className={cx('productType')}>Products Type: {detail?.type}</h4>
                         <h3 className={cx('quantityHeader')}>Quantity</h3>
-                        <div className={cx('quantityInput')}>
-                            {number === 1 ? (
-                                <button className={cx('decreaseBtn', { disable: 'disale' })}>
-                                    <FontAwesomeIcon icon={faMinus}></FontAwesomeIcon>
-                                </button>
-                            ) : (
-                                <button onClick={decrease} className={cx('decreaseBtn')}>
-                                    <FontAwesomeIcon icon={faMinus}></FontAwesomeIcon>
-                                </button>
-                            )}
-                            <input value={number} onChange={() => {}} className={cx('increaseInput')}></input>
-                            <button onClick={increase} className={cx('increaseBtn')}>
-                                <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
-                            </button>
-                        </div>
+                        <Quantity></Quantity>
                         <p className={cx('productDes')}>Description: {detail?.description}</p>
                         <Button sandybrownColor textWhite>
                             Thêm vào giỏ hàng

@@ -17,9 +17,11 @@ import { useSelector } from 'react-redux';
 import { loginSuccess, logoutSuccess } from '~/redux/authSlice';
 import { logOut } from '~/redux/apiRequest';
 import Search from '~/components/Search/Search';
+import { useState } from 'react';
 
 const cx = classNames.bind(style);
 function Header() {
+    const [count, setCount] = useState(0);
     const dispath = useDispatch();
     const navigate = useNavigate();
     const user = useSelector((state) => state.auth.login.currentUser);
@@ -44,9 +46,11 @@ function Header() {
                     </Link>
                 </div>
                 <div className={cx('castWrapper')}>
-                    <div className={cx('cast')}>
+                    <Link className={cx('cart')} to={'/cart'}>
                         <img src={castImg} alt="castImage" className={cx('castImage')}></img>
-                    </div>
+                        <span className={cx('cartCount')}>{count}</span>
+                    </Link>
+
                     <div className={cx('singInBtn')}>
                         {user === null ? (
                             <div>
@@ -95,9 +99,7 @@ function Header() {
                             </Link>
                         </div>
                         <div>
-                            <Link className={cx('navItem')} to="/">
-                                Contact
-                            </Link>
+                            <Link className={cx('navItem')}>Contact</Link>
                         </div>
                     </nav>
                     <Search></Search>

@@ -3,6 +3,7 @@ import LoginForm from '~/components/LoginForm';
 import RegisterForm from '~/components/RegisterForm';
 import Detail from '~/Pages/Detail';
 import config from '~/config';
+import Cart from '~/Pages/Cart';
 
 const publicRoutes = [
     {
@@ -20,6 +21,10 @@ const publicRoutes = [
     {
         path: config.routes.detail,
         component: Detail,
+    },
+    {
+        path: config.routes.cart,
+        component: Cart,
     },
 ];
 const privateRoutes = [];

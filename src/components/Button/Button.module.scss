@@ -102,3 +102,17 @@
 .ml5 {
     margin-left: 5px;
 }
+.w100 {
+    width: 100%;
+}
+.bgRed {
+    background-color: red;
+}
+.mt15 {
+    margin-top: 15px;
+}
+.op05 {
+    &:hover {
+        opacity: 0.5;
+    }
+}
