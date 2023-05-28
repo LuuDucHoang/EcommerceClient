@@ -19,26 +19,46 @@ const cx = classNames.bind(style);
 function Cart() {
     const dispath = useDispatch();
     const navigate = useNavigate();
-    const [number, setNumber] = useState(1);
+    const [number, setNumber] = useState([]);
     const [datas, setDatas] = useState([]);
-    let arr = [];
     const user = useSelector((state) => state.auth.login.currentUser);
     let axiosJWT = createAxios(user, dispath, loginSuccess);
     const accessToken = user?.accessToken;
     const id = user?.user._id;
-    const increase = () => {
-        setNumber(number + 1);
+
+    const increase = (index) => {
+        const x = number;
+        x.splice(index, 1, (+number[index] + 1).toString());
+
+        return setNumber((prev) => [...x]);
     };
-    const decrease = () => {
-        setNumber(number - 1);
+    const decrease = (index) => {
+        const x = number;
+        if (+number[index] - 1 <= 0) {
+            x.splice(index, 1, 0);
+            setNumber((prev) => [...prev, x]);
+            return;
+        }
+        x.splice(index, 1, (+number[index] - 1).toString());
+
+        return setNumber((prev) => [...x]);
+    };
+    const value = (x) => {
+        setNumber((prev) => [...prev, x]);
+        return;
     };
     useEffect(() => {
+        if (!user) {
+            navigate('/loginform');
+            return;
+        }
         const fethCart = async () => {
             const x = await getCart(dispath, id, navigate, accessToken, axiosJWT);
             setDatas(x.data.cart);
         };
         fethCart();
     }, [datas.length]);
+
     return (
         <div className={cx('Wrapper')} style={{ backgroundImage: `url('${productBGImage}')` }}>
             <div className={cx('container')}>
@@ -56,7 +76,14 @@ function Cart() {
                     <ul className={cx('productList')}>
                         {datas?.map((data, index) => {
                             return (
-                                <li key={index} className={cx('productItem')}>
+                                <li
+                                    onLoad={() => {
+                                        value(data.quality);
+                                        return;
+                                    }}
+                                    key={index}
+                                    className={cx('productItem')}
+                                >
                                     <div className={cx('col1')}>
                                         <Link to={'/'} className={cx('productImg')}>
                                             <img className={cx('prImg')} src={data.img} alt={data.name}></img>
@@ -83,22 +110,36 @@ function Cart() {
                                                     <FontAwesomeIcon icon={faMinus}></FontAwesomeIcon>
                                                 </button>
                                             ) : (
-                                                <button onClick={decrease} className={cx('decreaseBtn')}>
+                                                <button
+                                                    onClick={() => {
+                                                        decrease(index);
+                                                    }}
+                                                    className={cx('decreaseBtn')}
+                                                >
                                                     <FontAwesomeIcon icon={faMinus}></FontAwesomeIcon>
                                                 </button>
                                             )}
                                             <input
-                                                value={number}
-                                                onChange={() => {}}
+                                                value={+number[index] || 0}
+                                                onChange={(e) => {
+                                                    console.log(e.target.value);
+                                                }}
                                                 className={cx('increaseInput')}
                                             ></input>
-                                            <button onClick={increase} className={cx('increaseBtn')}>
+                                            <button
+                                                onClick={() => {
+                                                    increase(index);
+                                                }}
+                                                className={cx('increaseBtn')}
+                                            >
                                                 <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
                                             </button>
                                         </div>
                                     </div>
                                     <div className={cx('col4')}>
-                                        <span className={cx('productFinalPrice')}>{data.quality * data.price} $</span>
+                                        <span className={cx('productFinalPrice')}>
+                                            {+number[index] && +number[index] * data.price} $
+                                        </span>
                                     </div>
                                     <div className={cx('col5')}>
                                         <button className={cx('removeIcon')}>
