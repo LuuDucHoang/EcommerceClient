@@ -8,6 +8,11 @@ const cartSlice = createSlice({
             isFetching: false,
             err: false,
         },
+        insertCart: {
+            postCart: false,
+            isFetching: false,
+            err: false,
+        },
     },
     reducers: {
         getCartStart: (state) => {
@@ -21,7 +26,20 @@ const cartSlice = createSlice({
             state.getCart.isFetching = false;
             state.getCart.err = true;
         },
+        IsertCartStart: (state) => {
+            state.insertCart.isFetching = true;
+        },
+        IsertCartSuccess: (state) => {
+            state.insertCart.isFetching = false;
+            state.insertCart.postCart = true;
+        },
+        IsertCartFailed: (state) => {
+            state.insertCart.isFetching = false;
+            state.insertCart.postCart = false;
+            state.insertCart.err = true;
+        },
     },
 });
-export const { getCartStart, getCartSuccess, getCartFailed } = cartSlice.actions;
+export const { getCartStart, getCartSuccess, getCartFailed, IsertCartStart, IsertCartSuccess, IsertCartFailed } =
+    cartSlice.actions;
 export default cartSlice.reducer;

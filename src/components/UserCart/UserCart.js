@@ -1,10 +1,27 @@
+import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import style from './UserCart.module.scss';
 import Button from '../Button/Button';
 const cx = classNames.bind(style);
-function UserCart() {
+function UserCart({ qualitys, arrs }) {
+    const user = useSelector((state) => state.auth.login.currentUser?.user);
+    const [finalPrice, setFinalPrice] = useState();
+
+    useEffect(() => {
+        let sum = 0;
+        for (let i = 0; i < arrs.length; i++) {
+            let x = +qualitys[i] * +arrs[i];
+            // eslint-disable-next-line use-isnan
+            if (x === NaN) {
+                x = 0;
+            }
+            sum = sum + x;
+        }
+        setFinalPrice(sum);
+    }, [qualitys, arrs]);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('userWrapper')}>
@@ -15,13 +32,13 @@ function UserCart() {
                     </Link>
                 </div>
                 <div className={cx('userInfor')}>
-                    <p className={cx('name')}>Lưu Đức Hoàng</p>
+                    <p className={cx('name')}>{user?.name || ''}</p>
                     <i className={cx('spreate')}></i>
-                    <p className={cx('phoneNumber')}>0337041032</p>
+                    <p className={cx('phoneNumber')}>ĐT: {user?.phone || ''}</p>
                 </div>
                 <div className={cx('userAdr')}>
                     <span className={cx('home')}>Nhà</span>
-                    <span className={cx('adr')}>Ki ốt xăng dầu số 4, Phường Bắc Sơn, Thị xã Phổ Yên, Thái Nguyên</span>
+                    <span className={cx('adr')}>{user?.address || ''}</span>
                 </div>
             </div>
             <div className={cx('sumaryWrapper')}>
@@ -38,7 +55,7 @@ function UserCart() {
                 <div className={cx('priceTotal')}>
                     <span className={cx('priceText')}>Tổng tiền</span>
                     <div className={cx('priceContent')}>
-                        <div className={cx('priceValueFinal')}>73.000 ₫</div>
+                        <div className={cx('priceValueFinal')}>{finalPrice || 0} ₫</div>
                         <span className={cx('notice')}></span>
                     </div>
                 </div>

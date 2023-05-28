@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 import { getCart } from '~/redux/apiRequest';
 import { createAxios } from '~/utils/createInstamce';
 import { loginSuccess } from '~/redux/authSlice';
+import { removeItemCart } from '~/redux/apiRequest';
 // import style,img
 import style from './Cart.module.scss';
 import productBGImage from '~/Stactic/images/product_bg.jpg';
@@ -21,6 +22,9 @@ function Cart() {
     const navigate = useNavigate();
     const [number, setNumber] = useState([]);
     const [datas, setDatas] = useState([]);
+
+    const [refresh, setReFresh] = useState();
+    const [priceArr, setPriceArr] = useState([]);
     const user = useSelector((state) => state.auth.login.currentUser);
     let axiosJWT = createAxios(user, dispath, loginSuccess);
     const accessToken = user?.accessToken;
@@ -28,24 +32,23 @@ function Cart() {
 
     const increase = (index) => {
         const x = number;
-        x.splice(index, 1, (+number[index] + 1).toString());
-
-        return setNumber((prev) => [...x]);
+        x[index] = (+number[index] + 1).toString();
+        return setNumber(() => [...x]);
     };
     const decrease = (index) => {
         const x = number;
         if (+number[index] - 1 <= 0) {
-            x.splice(index, 1, 0);
+            x.splice(index, 1, '0');
             setNumber((prev) => [...prev, x]);
             return;
         }
         x.splice(index, 1, (+number[index] - 1).toString());
 
-        return setNumber((prev) => [...x]);
+        return setNumber(() => [...x]);
     };
-    const value = (x) => {
-        setNumber((prev) => [...prev, x]);
-        return;
+    const handleRemove = async (data) => {
+        const x = await removeItemCart(id, data, accessToken, axiosJWT);
+        setDatas(x?.data.cart);
     };
     useEffect(() => {
         if (!user) {
@@ -54,20 +57,29 @@ function Cart() {
         }
         const fethCart = async () => {
             const x = await getCart(dispath, id, navigate, accessToken, axiosJWT);
-            setDatas(x.data.cart);
+            if (x.data) {
+                setDatas(x.data.cart);
+            }
         };
+        if (datas) {
+            setPriceArr([]);
+            setNumber([]);
+            for (let i = 0; i < datas?.length; i++) {
+                setPriceArr((prev) => [...prev, datas[i]?.price]);
+                setNumber((prev) => [...prev, datas[i]?.quality]);
+            }
+        }
         fethCart();
     }, [datas.length]);
 
     return (
         <div className={cx('Wrapper')} style={{ backgroundImage: `url('${productBGImage}')` }}>
             <div className={cx('container')}>
-                {datas.ca}
                 <div className={cx('cartWrapper')}>
                     <h1 className={cx('cartName')}>Giỏ hàng</h1>
                     <div className={cx('table')}>
                         <label className={cx('allCount')}>
-                            <span className={cx('lable')}>Tất cả (1 sản phẩm)</span>
+                            <span className={cx('lable')}>Tất cả ({datas.length} sản phẩm)</span>
                         </label>
                         <span>Đơn giá</span>
                         <span>Số lượng</span>
@@ -76,36 +88,29 @@ function Cart() {
                     <ul className={cx('productList')}>
                         {datas?.map((data, index) => {
                             return (
-                                <li
-                                    onLoad={() => {
-                                        value(data.quality);
-                                        return;
-                                    }}
-                                    key={index}
-                                    className={cx('productItem')}
-                                >
+                                <li key={index} className={cx('productItem')}>
                                     <div className={cx('col1')}>
-                                        <Link to={'/'} className={cx('productImg')}>
-                                            <img className={cx('prImg')} src={data.img} alt={data.name}></img>
+                                        <Link to={`/${data.id}/${data.type}`} className={cx('productImg')}>
+                                            <img className={cx('prImg')} src={data?.img} alt={data?.name}></img>
                                         </Link>
                                         <div className={cx('productContent')}>
-                                            <Link className={cx('productName')} to={'/'}>
-                                                {data.name}
+                                            <Link className={cx('productName')} to={`/${data.id}/${data.type}`}>
+                                                {data?.name}
                                             </Link>
                                             <span className={cx('productBrand')}>{data?.brand}</span>
                                             <div>
-                                                <span className={cx('productBrand')}>Size: {data.size}</span>
+                                                <span className={cx('productBrand')}>Size: {data?.size}</span>
                                             </div>
                                         </div>
                                     </div>
                                     <div className={cx('col2')}>
                                         <p className={cx('productPriceWrapper')}>
-                                            <span className={cx('productPrice')}>{data.price} $</span>
+                                            <span className={cx('productPrice')}>{data?.price} $</span>
                                         </p>
                                     </div>
                                     <div className={cx('col3')}>
                                         <div className={cx('quantityInput')}>
-                                            {number === 1 ? (
+                                            {+number[index] === 1 ? (
                                                 <button className={cx('decreaseBtn', { disable: 'disale' })}>
                                                     <FontAwesomeIcon icon={faMinus}></FontAwesomeIcon>
                                                 </button>
@@ -121,9 +126,7 @@ function Cart() {
                                             )}
                                             <input
                                                 value={+number[index] || 0}
-                                                onChange={(e) => {
-                                                    console.log(e.target.value);
-                                                }}
+                                                onChange={(e) => {}}
                                                 className={cx('increaseInput')}
                                             ></input>
                                             <button
@@ -142,7 +145,7 @@ function Cart() {
                                         </span>
                                     </div>
                                     <div className={cx('col5')}>
-                                        <button className={cx('removeIcon')}>
+                                        <button onClick={() => handleRemove(data, index)} className={cx('removeIcon')}>
                                             <FontAwesomeIcon icon={faTrashCan}></FontAwesomeIcon>
                                         </button>
                                     </div>
@@ -152,7 +155,7 @@ function Cart() {
                     </ul>
                 </div>
                 <div className={cx('rightCol')}>
-                    <UserCart></UserCart>
+                    <UserCart qualitys={number} arrs={priceArr}></UserCart>
                 </div>
             </div>
         </div>

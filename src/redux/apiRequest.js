@@ -9,7 +9,14 @@ import {
     registerStart,
     registerSuccess,
 } from './authSlice';
-import { getCartFailed, getCartStart, getCartSuccess } from './cartSlice';
+import {
+    getCartFailed,
+    getCartStart,
+    getCartSuccess,
+    IsertCartStart,
+    IsertCartSuccess,
+    IsertCartFailed,
+} from './cartSlice';
 
 export const loginUser = async (user, dispath, navigate) => {
     dispath(loginStart());
@@ -50,6 +57,7 @@ export const logOut = async (dispath, id, navigate, accessToken, axiosJWT) => {
         navigate('/');
     } catch (error) {
         dispath(loginFailed());
+        return error.response;
     }
 };
 
@@ -65,5 +73,42 @@ export const getCart = async (dispath, id, navigate, accessToken, axiosJWT) => {
         return res.data;
     } catch (error) {
         dispath(getCartFailed());
+    }
+};
+
+export const insertCart = async (id, data, accessToken, axiosJWT) => {
+    try {
+        const res = await axiosJWT.post(
+            `api/cart`,
+            {
+                userId: id,
+                arr: data,
+            },
+            {
+                headers: { token: `Bearer ${accessToken}` },
+            },
+        );
+
+        return res.data;
+    } catch (error) {
+        return error.response.data;
+    }
+};
+
+export const removeItemCart = async (id, data, accessToken, axiosJWT) => {
+    try {
+        const res = await axiosJWT.put(
+            'api/cart/remove',
+            {
+                userId: id,
+                remove: data,
+            },
+            {
+                headers: { token: `Bearer ${accessToken}` },
+            },
+        );
+        return res.data;
+    } catch (error) {
+        return error.response.data;
     }
 };
