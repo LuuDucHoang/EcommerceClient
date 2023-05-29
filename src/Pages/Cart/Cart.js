@@ -22,8 +22,6 @@ function Cart() {
     const navigate = useNavigate();
     const [number, setNumber] = useState([]);
     const [datas, setDatas] = useState([]);
-
-    const [refresh, setReFresh] = useState();
     const [priceArr, setPriceArr] = useState([]);
     const user = useSelector((state) => state.auth.login.currentUser);
     let axiosJWT = createAxios(user, dispath, loginSuccess);
@@ -51,13 +49,9 @@ function Cart() {
         setDatas(x?.data.cart);
     };
     useEffect(() => {
-        if (!user) {
-            navigate('/loginform');
-            return;
-        }
         const fethCart = async () => {
             const x = await getCart(dispath, id, navigate, accessToken, axiosJWT);
-            if (x.data) {
+            if (x?.data) {
                 setDatas(x.data.cart);
             }
         };

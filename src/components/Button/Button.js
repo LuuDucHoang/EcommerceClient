@@ -24,6 +24,7 @@ function Button({
     bgRed,
     op05,
     mt15,
+    bgGreen,
     sandybrownColor,
     ...passProps
 }) {
@@ -59,6 +60,7 @@ function Button({
         w100,
         bgRed,
         mt15,
+        bgGreen,
         op05,
         sandybrownColor,
         [className]: className,

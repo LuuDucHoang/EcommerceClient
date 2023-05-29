@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { Link, useNavigate } from 'react-router-dom';
@@ -10,27 +10,44 @@ import { createAxios } from '~/utils/createInstamce';
 import { logOut } from '~/redux/apiRequest';
 import { logoutSuccess } from '~/redux/authSlice';
 import Search from '~/components/Search/Search';
+import { getCart } from '~/redux/apiRequest';
 
 // import img
 import style from './Header.nmodule.scss';
 import emailImg from '~/Stactic/images/email.png';
 import logoImg from '~/Stactic/images/logo.png';
 import castImg from '~/Stactic/images/shopping.png';
+import Modal from '~/components/Modal/Modal';
 
 const cx = classNames.bind(style);
 function Header() {
-    const [count, setCount] = useState(0);
-    const dispath = useDispatch();
     const navigate = useNavigate();
+    const dispath = useDispatch();
+    const [count, setCount] = useState(0);
+    const [open, setOpen] = useState(false);
+    const [random, setRandom] = useState('');
+    const cart = useSelector((state) => state.cart.getCart.currentUserCart?.data);
     const user = useSelector((state) => state.auth.login.currentUser);
     const accessToken = user?.accessToken;
     const id = user?.user._id;
     let axiosJWT = createAxios(user, dispath, logoutSuccess);
-    const handleLogOut = async () => {
-        const x = await logOut(dispath, id, navigate, accessToken, axiosJWT);
-        console.log(x);
+    const handleCheck = () => {
+        if (!user) {
+            setOpen(true);
+            setRandom(Math.random());
+        }
     };
-
+    const handleLogOut = async () => {
+        await logOut(dispath, id, navigate, accessToken, axiosJWT);
+    };
+    useEffect(() => {
+        if (user) {
+            setCount(cart.cart.length);
+        }
+        if (!user) {
+            setCount(0);
+        }
+    }, [cart.cart.length, user]);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('upper')}>
@@ -44,7 +61,7 @@ function Header() {
                     </Link>
                 </div>
                 <div className={cx('castWrapper')}>
-                    <Link className={cx('cart')} to={'/cart'}>
+                    <Link onClick={handleCheck} className={cx('cart')} to={user && '/cart'}>
                         <img src={castImg} alt="castImage" className={cx('castImage')}></img>
                         <span className={cx('cartCount')}>{count}</span>
                     </Link>
@@ -103,6 +120,7 @@ function Header() {
                     <Search></Search>
                 </div>
             </div>
+            <Modal isOpen={open} random={random}></Modal>
         </div>
     );
 }
