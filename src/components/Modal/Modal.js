@@ -9,7 +9,7 @@ import Button from '~/components/Button';
 import style from './Modal.module.scss';
 const cx = classNames.bind(style);
 
-function Modal({ isOpen, title, des, success = true, successBtn, clickSuccse, random }) {
+function Modal({ isOpen, title, des, success = '', successBtn, clickSuccse, random }) {
     const [open, setOpen] = useState(isOpen);
     const wrapper = useRef();
     const modal = useRef();
@@ -45,7 +45,7 @@ function Modal({ isOpen, title, des, success = true, successBtn, clickSuccse, ra
                             <Button onClick={() => setOpen(false)} textWhite bgRed>
                                 Đóng
                             </Button>
-                            <Button to={success && '/loginform'} onClick={() => setOpen(false)} bgGreen textWhite>
+                            <Button to={success || '/loginform'} onClick={() => setOpen(false)} bgGreen textWhite>
                                 {successBtn || 'Đăng nhập'}
                             </Button>
                         </div>

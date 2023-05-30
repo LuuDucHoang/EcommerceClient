@@ -1,0 +1,89 @@
+.Wrapper {
+    background-size: 100% 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    padding: 90px 0 30px 0;
+}
+.container {
+    height: 700px;
+    width: 1150px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.updateForm {
+    width: 550px;
+    min-height: 550px;
+    padding: 50px;
+    background-color: sandybrown;
+    display: flex;
+    flex-direction: column;
+    border-radius: 6px;
+}
+.updateFormHeader {
+    font-size: 3rem;
+}
+
+.input {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    width: 90%;
+}
+
+.inputText {
+    border-color: transparent;
+    border-radius: 6px;
+    outline: none;
+    padding: 2px 6px;
+    font-size: 1.8rem;
+    height: 45px;
+    width: 100%;
+}
+.text {
+    width: 110px;
+    min-width: 110px;
+    font-size: 1.8rem;
+    color: rgb(51, 51, 51);
+    margin-right: 16px;
+}
+.sexWrapper {
+    width: 100px;
+    border: 1px solid rgb(204, 204, 204);
+    height: 34px;
+    padding: 6px 12px;
+    line-height: 34px;
+    outline: none;
+    border-radius: 4px;
+    margin: 0px 12px 0px 0px;
+    background: 0px center;
+    box-shadow: none;
+    background-color: white;
+    font-size: 1.6rem;
+}
+.ageInput {
+    width: 100px;
+    border: 1px solid rgb(204, 204, 204);
+    height: 34px;
+    padding: 6px 12px;
+    line-height: 34px;
+    outline: none;
+    border-radius: 4px;
+    margin: 0px 12px 0px 0px;
+    background: 0px center;
+    box-shadow: none;
+    background-color: white;
+    font-size: 1.6rem;
+}
+.buttonWrapper {
+    margin-top: 20px;
+}
+.err {
+    display: block;
+    margin-top: 8px;
+    margin-bottom: 4px;
+    font-size: 12px;
+    color: red;
+}

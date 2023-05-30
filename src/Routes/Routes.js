@@ -4,7 +4,7 @@ import RegisterForm from '~/components/RegisterForm';
 import Detail from '~/Pages/Detail';
 import config from '~/config';
 import Cart from '~/Pages/Cart';
-
+import UpdateInfo from '~/Pages/UpdateInfo';
 const publicRoutes = [
     {
         path: config.routes.home,
@@ -25,6 +25,10 @@ const publicRoutes = [
     {
         path: config.routes.cart,
         component: Cart,
+    },
+    {
+        path: config.routes.updateInfo,
+        component: UpdateInfo,
     },
 ];
 const privateRoutes = [];

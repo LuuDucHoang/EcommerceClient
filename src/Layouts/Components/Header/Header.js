@@ -1,16 +1,17 @@
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import HeadlessTippy from '@tippyjs/react/headless';
+
 //import component
 import Button from '~/components/Button';
 import { createAxios } from '~/utils/createInstamce';
 import { logOut } from '~/redux/apiRequest';
 import { logoutSuccess } from '~/redux/authSlice';
 import Search from '~/components/Search/Search';
-import { getCart } from '~/redux/apiRequest';
+import { getCart, getUserIfor } from '~/redux/apiRequest';
 
 // import img
 import style from './Header.nmodule.scss';
@@ -26,6 +27,8 @@ function Header() {
     const [count, setCount] = useState(0);
     const [open, setOpen] = useState(false);
     const [random, setRandom] = useState('');
+    const [name, setName] = useState('');
+    const [x, setX] = useState('');
     const cart = useSelector((state) => state.cart.getCart.currentUserCart?.data);
     const user = useSelector((state) => state.auth.login.currentUser);
     const accessToken = user?.accessToken;
@@ -41,13 +44,26 @@ function Header() {
         await logOut(dispath, id, navigate, accessToken, axiosJWT);
     };
     useEffect(() => {
-        if (user) {
-            setCount(cart.cart.length);
-        }
-        if (!user) {
-            setCount(0);
-        }
-    }, [cart.cart.length, user]);
+        const fethCart = async () => {
+            if (user) {
+                const data = await getCart(dispath, id, navigate, accessToken, axiosJWT);
+                const info = await getUserIfor(id, accessToken, axiosJWT);
+                if (info) {
+                    setX(Math.random());
+                    setName(info.name);
+                }
+                if (!data.data) {
+                    setCount(0);
+                    return;
+                }
+                setCount(data.data?.cart?.length);
+            }
+            if (!user) {
+                setCount(0);
+            }
+        };
+        fethCart();
+    }, [cart?.cart.length, user]);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('upper')}>
@@ -77,8 +93,31 @@ function Header() {
                                 </Button>
                             </div>
                         ) : (
-                            <div>
-                                <Button>Hi, {user?.user.name}</Button>
+                            <div style={{ display: 'flex' }}>
+                                <div className={cx('userBtn')}>
+                                    <HeadlessTippy
+                                        visible
+                                        interactive
+                                        placement="bottom-start"
+                                        render={() => (
+                                            <ul className={cx('userInfo')}>
+                                                <li className={cx('userItem')}>
+                                                    <Link to={`/user/${id}`} className={cx('userItemText')}>
+                                                        Thông tin cá nhân
+                                                    </Link>
+                                                </li>
+                                                <li className={cx('userItem')}>
+                                                    <Link className={cx('userItemText')}>Xem đơn hàng</Link>
+                                                </li>
+                                            </ul>
+                                        )}
+                                    >
+                                        <div>
+                                            <Button>Hi, {name}</Button>
+                                        </div>
+                                    </HeadlessTippy>
+                                </div>
+
                                 <Button onClick={handleLogOut} ml5>
                                     Log out
                                 </Button>

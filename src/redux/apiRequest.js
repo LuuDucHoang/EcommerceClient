@@ -109,6 +109,37 @@ export const removeItemCart = async (id, data, accessToken, axiosJWT) => {
         );
         return res.data;
     } catch (error) {
-        return error.response.data;
+        return error.response;
+    }
+};
+
+export const getUserIfor = async (id, accessToken, axiosJWT) => {
+    try {
+        const res = await axiosJWT.get(`api/user/${id}`, {
+            headers: { token: `Bearer ${accessToken}` },
+        });
+        return res.data.data;
+    } catch (error) {
+        console.log(error);
+        return error.response;
+    }
+};
+
+export const updateUser = async (id, data, accessToken, axiosJWT) => {
+    try {
+        const res = await axiosJWT.put(
+            'api/users/update',
+            {
+                id,
+                data,
+            },
+            {
+                headers: { token: `Bearer ${accessToken}` },
+            },
+        );
+        return res.data;
+    } catch (error) {
+        console.log(error);
+        return error;
     }
 };
