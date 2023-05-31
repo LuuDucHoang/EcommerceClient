@@ -80,12 +80,11 @@ function UpdateInfo() {
             age,
             phone,
         };
-        console.log(data);
         await updateUser(id, data, accessToken, axiosJWT);
         notify();
         setTimeout(() => {
             window.location.reload();
-        }, 1000);
+        }, 500);
     };
     useEffect(() => {
         const fethUser = async () => {

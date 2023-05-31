@@ -27,7 +27,6 @@ function Cart() {
     let axiosJWT = createAxios(user, dispath, loginSuccess);
     const accessToken = user?.accessToken;
     const id = user?.user._id;
-
     const increase = (index) => {
         const x = number;
         x[index] = (+number[index] + 1).toString();
@@ -149,7 +148,7 @@ function Cart() {
                     </ul>
                 </div>
                 <div className={cx('rightCol')}>
-                    <UserCart qualitys={number} arrs={priceArr}></UserCart>
+                    <UserCart datas={datas} qualitys={number} arrs={priceArr}></UserCart>
                 </div>
             </div>
         </div>

@@ -1,40 +1,46 @@
 import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 //import componet
-import { getUserIfor } from '~/redux/apiRequest';
+
 import { createAxios } from '~/utils/createInstamce';
 import { loginSuccess } from '~/redux/authSlice';
-
+import { postUserOrder, clearUserCart, getUserIfor } from '~/redux/apiRequest';
 import Button from '../Button/Button';
 import Modal from '../Modal/Modal';
 //import style,img
 import style from './UserCart.module.scss';
 
 const cx = classNames.bind(style);
-function UserCart({ qualitys, arrs }) {
+function UserCart({ datas, qualitys, arrs }) {
     const dispath = useDispatch();
+    const navigate = useNavigate();
     const user = useSelector((state) => state.auth.login.currentUser);
     const [finalPrice, setFinalPrice] = useState();
     const [info, setInfo] = useState({});
     const [open, setOpen] = useState(false);
+    const [data, setData] = useState();
     const [refresh, setRefresh] = useState('');
     const accessToken = user?.accessToken;
     let axiosJWT = createAxios(user, dispath, loginSuccess);
     const id = user?.user?._id;
-
     const title = 'Bạn chưa cung cấp đầy đủ thông tin';
     const des = 'Bạn có muốn tới trang cập nhật thêm thông tin?';
     const successBtn = 'Cập nhật';
-    const submitBtn = () => {
+    const submitBtn = async () => {
         if (!info?.phone || !info?.address) {
             setOpen(true);
             setRefresh(Math.random());
+            return;
         }
+        await postUserOrder(id, info?.name, info?.address, info?.phone, data, accessToken, axiosJWT);
+        await clearUserCart(id, accessToken, navigate, axiosJWT);
     };
     useEffect(() => {
         let sum = 0;
+        setData('');
+
         for (let i = 0; i < arrs.length; i++) {
             let x = +qualitys[i] * +arrs[i];
             // eslint-disable-next-line use-isnan
@@ -43,6 +49,19 @@ function UserCart({ qualitys, arrs }) {
             }
             sum = sum + x;
         }
+
+        if (datas) {
+            for (let i = 0; i < datas.length; i++) {
+                let newData = {
+                    ...datas[i],
+                    quality: +qualitys[i],
+                };
+                if (newData) {
+                    setData((prev) => [...prev, newData]);
+                }
+            }
+        }
+
         const fethUser = async () => {
             const info = await getUserIfor(id, accessToken, axiosJWT);
             if (info) {
@@ -91,7 +110,7 @@ function UserCart({ qualitys, arrs }) {
                         </div>
                     </div>
                 </div>
-                <Button onClick={submitBtn} bgRed textWhite op05 mt15 w100>
+                <Button disable={finalPrice === 0 && true} onClick={submitBtn} bgRed textWhite op05 mt15 w100>
                     Mua hàng
                 </Button>
             </div>

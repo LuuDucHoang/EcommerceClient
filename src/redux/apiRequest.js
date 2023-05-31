@@ -143,3 +143,38 @@ export const updateUser = async (id, data, accessToken, axiosJWT) => {
         return error;
     }
 };
+export const clearUserCart = async (userId, accessToken, navigate, axiosJWT) => {
+    try {
+        const res = await axiosJWT.delete(`api/clearcart/${userId}`, {
+            headers: { token: `Bearer ${accessToken}` },
+        });
+        navigate('/');
+        return res.data;
+    } catch (error) {
+        console.log(error);
+        return error.response;
+    }
+};
+
+// userOders
+export const postUserOrder = async (userId, userName, address, phone, orders, accessToken, axiosJWT) => {
+    try {
+        const res = await axiosJWT.post(
+            'api/userorder',
+            {
+                userId,
+                userName,
+                address,
+                phone,
+                orders,
+            },
+            {
+                headers: { token: `Bearer ${accessToken}` },
+            },
+        );
+        return res.data;
+    } catch (error) {
+        console.log(error);
+        return error.response;
+    }
+};

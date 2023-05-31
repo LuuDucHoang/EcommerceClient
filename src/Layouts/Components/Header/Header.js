@@ -112,9 +112,7 @@ function Header() {
                                             </ul>
                                         )}
                                     >
-                                        <div>
-                                            <Button>Hi, {name}</Button>
-                                        </div>
+                                        <div>{name && <Button>Hi, {name}</Button>}</div>
                                     </HeadlessTippy>
                                 </div>
 
