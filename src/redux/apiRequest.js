@@ -191,3 +191,15 @@ export const getUserOrders = async (id, accessToken, axiosJWT) => {
         return error.response;
     }
 };
+
+export const getDetailUserOrder = async (id, accessToken, axiosJWT) => {
+    try {
+        const res = await axiosJWT.get(`api/userorder/detail/${id}`, {
+            headers: { token: `Bearer ${accessToken}` },
+        });
+        return res.data;
+    } catch (error) {
+        console.log(error);
+        return error.response;
+    }
+};

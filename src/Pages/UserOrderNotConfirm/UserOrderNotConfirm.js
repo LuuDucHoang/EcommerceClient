@@ -95,7 +95,7 @@ function UserOrder() {
                                             <Button onClick={() => setRefresh(Math.random())} ml5 bgRed textWhite>
                                                 Hủy
                                             </Button>
-                                            <Button ml5 bgGreen textWhite>
+                                            <Button to={`/order/user/${item._id}`} ml5 bgGreen textWhite>
                                                 Xem chi tiết
                                             </Button>
                                         </div>

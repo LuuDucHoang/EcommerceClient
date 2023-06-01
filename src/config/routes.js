@@ -6,5 +6,6 @@ const routes = {
     cart: '/cart',
     updateInfo: '/user/:id',
     checkOrder: '/order/notconfirm',
+    oderDetail: '/order/user/:_id',
 };
 export default routes;

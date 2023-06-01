@@ -5,6 +5,7 @@ import Detail from '~/Pages/Detail';
 import config from '~/config';
 import Cart from '~/Pages/Cart';
 import UpdateInfo from '~/Pages/UpdateInfo';
+import DetailUserOrder from '~/Pages/DetailUserOrder';
 import UserOrderNotConfirm from '~/Pages/UserOrderNotConfirm';
 const publicRoutes = [
     {
@@ -34,6 +35,10 @@ const publicRoutes = [
     {
         path: config.routes.checkOrder,
         component: UserOrderNotConfirm,
+    },
+    {
+        path: config.routes.oderDetail,
+        component: DetailUserOrder,
     },
 ];
 const privateRoutes = [];
