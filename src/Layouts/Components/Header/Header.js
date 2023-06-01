@@ -28,7 +28,7 @@ function Header() {
     const [open, setOpen] = useState(false);
     const [random, setRandom] = useState('');
     const [name, setName] = useState('');
-    const [x, setX] = useState('');
+
     const cart = useSelector((state) => state.cart.getCart.currentUserCart?.data);
     const user = useSelector((state) => state.auth.login.currentUser);
     const accessToken = user?.accessToken;
@@ -45,14 +45,13 @@ function Header() {
     };
     useEffect(() => {
         const fethCart = async () => {
-            if (user) {
+            if (user?.user) {
                 const data = await getCart(dispath, id, navigate, accessToken, axiosJWT);
                 const info = await getUserIfor(id, accessToken, axiosJWT);
                 if (info) {
-                    setX(Math.random());
                     setName(info.name);
                 }
-                if (!data.data) {
+                if (!data?.data) {
                     setCount(0);
                     return;
                 }
@@ -107,7 +106,9 @@ function Header() {
                                                     </Link>
                                                 </li>
                                                 <li className={cx('userItem')}>
-                                                    <Link className={cx('userItemText')}>Xem đơn hàng</Link>
+                                                    <Link to={'/order/notconfirm'} className={cx('userItemText')}>
+                                                        Xem đơn hàng
+                                                    </Link>
                                                 </li>
                                             </ul>
                                         )}

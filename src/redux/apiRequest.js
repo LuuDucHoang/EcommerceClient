@@ -148,7 +148,7 @@ export const clearUserCart = async (userId, accessToken, navigate, axiosJWT) => 
         const res = await axiosJWT.delete(`api/clearcart/${userId}`, {
             headers: { token: `Bearer ${accessToken}` },
         });
-        navigate('/');
+        navigate('/order/notconfirm');
         return res.data;
     } catch (error) {
         console.log(error);
@@ -157,7 +157,7 @@ export const clearUserCart = async (userId, accessToken, navigate, axiosJWT) => 
 };
 
 // userOders
-export const postUserOrder = async (userId, userName, address, phone, orders, accessToken, axiosJWT) => {
+export const postUserOrder = async (userId, userName, address, phone, finalPrice, orders, accessToken, axiosJWT) => {
     try {
         const res = await axiosJWT.post(
             'api/userorder',
@@ -166,12 +166,25 @@ export const postUserOrder = async (userId, userName, address, phone, orders, ac
                 userName,
                 address,
                 phone,
+                finalPrice,
                 orders,
             },
             {
                 headers: { token: `Bearer ${accessToken}` },
             },
         );
+        return res.data;
+    } catch (error) {
+        console.log(error);
+        return error.response;
+    }
+};
+
+export const getUserOrders = async (id, accessToken, axiosJWT) => {
+    try {
+        const res = await axiosJWT.get(`api/userorder/${id}`, {
+            headers: { token: `Bearer ${accessToken}` },
+        });
         return res.data;
     } catch (error) {
         console.log(error);

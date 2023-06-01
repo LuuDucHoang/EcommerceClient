@@ -34,8 +34,10 @@ function UserCart({ datas, qualitys, arrs }) {
             setRefresh(Math.random());
             return;
         }
-        await postUserOrder(id, info?.name, info?.address, info?.phone, data, accessToken, axiosJWT);
+        await postUserOrder(id, info?.name, info?.address, info?.phone, finalPrice, data, accessToken, axiosJWT);
         await clearUserCart(id, accessToken, navigate, axiosJWT);
+
+        setRefresh(Math.random());
     };
     useEffect(() => {
         let sum = 0;
