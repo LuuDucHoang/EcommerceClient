@@ -9,14 +9,7 @@ import {
     registerStart,
     registerSuccess,
 } from './authSlice';
-import {
-    getCartFailed,
-    getCartStart,
-    getCartSuccess,
-    IsertCartStart,
-    IsertCartSuccess,
-    IsertCartFailed,
-} from './cartSlice';
+import { getCartFailed, getCartStart, getCartSuccess } from './cartSlice';
 
 export const loginUser = async (user, dispath, navigate) => {
     dispath(loginStart());
@@ -206,7 +199,7 @@ export const getDetailUserOrder = async (id, accessToken, axiosJWT) => {
 
 export const cancelUserOrders = async (id, accessToken, axiosJWT) => {
     try {
-        const res = await axiosJWT.delete(`api/userorder/cancel/${id}`, {
+        const res = await axiosJWT.patch(`api/userorder/cancel/${id}`, '', {
             headers: { token: `Bearer ${accessToken}` },
         });
         return res.data;
@@ -232,6 +225,19 @@ export const getNotConfirmUserOrders = async (id, accessToken, axiosJWT) => {
 export const getConfirmUserOrders = async (id, accessToken, axiosJWT) => {
     try {
         const res = await axiosJWT.get(`api/userorder/confirm/${id}`, {
+            headers: { token: `Bearer ${accessToken}` },
+        });
+
+        return res.data;
+    } catch (error) {
+        console.log(error);
+        return error.response;
+    }
+};
+
+export const getCancelUserOrders = async (id, accessToken, axiosJWT) => {
+    try {
+        const res = await axiosJWT.get(`api/userorder/cancel/${id}`, {
             headers: { token: `Bearer ${accessToken}` },
         });
 

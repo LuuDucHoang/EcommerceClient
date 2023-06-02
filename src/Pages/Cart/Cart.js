@@ -63,7 +63,7 @@ function Cart() {
             }
         }
         fethCart();
-    }, [datas.length]);
+    }, [datas?.length]);
 
     return (
         <div className={cx('Wrapper')} style={{ backgroundImage: `url('${productBGImage}')` }}>
@@ -72,7 +72,7 @@ function Cart() {
                     <h1 className={cx('cartName')}>Giỏ hàng</h1>
                     <div className={cx('table')}>
                         <label className={cx('allCount')}>
-                            <span className={cx('lable')}>Tất cả ({datas.length} sản phẩm)</span>
+                            <span className={cx('lable')}>Tất cả ({datas?.length} sản phẩm)</span>
                         </label>
                         <span>Đơn giá</span>
                         <span>Số lượng</span>

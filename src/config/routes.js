@@ -9,5 +9,6 @@ const routes = {
     oderDetail: '/order/user/:_id',
     notConfirmOrder: '/order/notconfirm',
     confirmOrder: '/order/confirm',
+    cancelOrder: '/order/cancel',
 };
 export default routes;
