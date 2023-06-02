@@ -1,12 +1,13 @@
+import config from '~/config';
 import Home from '~/Pages/Home';
 import LoginForm from '~/components/LoginForm';
 import RegisterForm from '~/components/RegisterForm';
 import Detail from '~/Pages/Detail';
-import config from '~/config';
 import Cart from '~/Pages/Cart';
 import UpdateInfo from '~/Pages/UpdateInfo';
 import DetailUserOrder from '~/Pages/DetailUserOrder';
-import UserOrderNotConfirm from '~/Pages/UserOrderNotConfirm';
+import UserOrderAll from '~/Pages/UserOrderAll/UserOrderAll';
+import UserOrderNotConfirm from '~/Pages/UserOrderNotConfirm/UserOrderNotConfirm';
 const publicRoutes = [
     {
         path: config.routes.home,
@@ -34,11 +35,15 @@ const publicRoutes = [
     },
     {
         path: config.routes.checkOrder,
-        component: UserOrderNotConfirm,
+        component: UserOrderAll,
     },
     {
         path: config.routes.oderDetail,
         component: DetailUserOrder,
+    },
+    {
+        path: config.routes.notConfirmOrder,
+        component: UserOrderNotConfirm,
     },
 ];
 const privateRoutes = [];

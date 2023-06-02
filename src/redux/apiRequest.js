@@ -148,7 +148,7 @@ export const clearUserCart = async (userId, accessToken, navigate, axiosJWT) => 
         const res = await axiosJWT.delete(`api/clearcart/${userId}`, {
             headers: { token: `Bearer ${accessToken}` },
         });
-        navigate('/order/notconfirm');
+        navigate('/order/all');
         return res.data;
     } catch (error) {
         console.log(error);
@@ -197,6 +197,31 @@ export const getDetailUserOrder = async (id, accessToken, axiosJWT) => {
         const res = await axiosJWT.get(`api/userorder/detail/${id}`, {
             headers: { token: `Bearer ${accessToken}` },
         });
+        return res.data;
+    } catch (error) {
+        console.log(error);
+        return error.response;
+    }
+};
+
+export const cancelUserOrders = async (id, accessToken, axiosJWT) => {
+    try {
+        const res = await axiosJWT.delete(`api/userorder/cancel/${id}`, {
+            headers: { token: `Bearer ${accessToken}` },
+        });
+        return res.data;
+    } catch (error) {
+        console.log(error);
+        return error.response;
+    }
+};
+
+export const getNotConfirmUserOrders = async (id, accessToken, axiosJWT) => {
+    try {
+        const res = await axiosJWT.get(`api/userorder/notconfirm/${id}`, {
+            headers: { token: `Bearer ${accessToken}` },
+        });
+
         return res.data;
     } catch (error) {
         console.log(error);

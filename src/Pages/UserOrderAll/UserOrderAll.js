@@ -10,11 +10,11 @@ import Button from '~/components/Button';
 import { createAxios } from '~/utils/createInstamce';
 import { loginSuccess } from '~/redux/authSlice';
 import SupNavOrder from '~/components/SupNavOrder';
-import { cancelUserOrders, getCart, getNotConfirmUserOrders } from '~/redux/apiRequest';
+import { getUserOrders, getCart, cancelUserOrders } from '~/redux/apiRequest';
 //import style,img
-import style from './UserOrderNotConfirm.module.scss';
+import style from './UserOrderAll.module.scss';
 const cx = classNames.bind(style);
-function UserOrderNotConfirm() {
+function UserOrder() {
     const dispath = useDispatch();
     const navigate = useNavigate();
 
@@ -32,7 +32,7 @@ function UserOrderNotConfirm() {
 
     useEffect(() => {
         const fethOrders = async () => {
-            const orders = await getNotConfirmUserOrders(id, accessToken, axiosJWT);
+            const orders = await getUserOrders(id, accessToken, axiosJWT);
             await getCart(dispath, id, navigate, accessToken, axiosJWT);
 
             if (orders?.data) {
@@ -44,7 +44,7 @@ function UserOrderNotConfirm() {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
-                <SupNavOrder active2></SupNavOrder>
+                <SupNavOrder active1></SupNavOrder>
                 <div className={cx('allOrder')}>
                     {datas?.map((item, index) => {
                         return (
@@ -111,4 +111,4 @@ function UserOrderNotConfirm() {
     );
 }
 
-export default UserOrderNotConfirm;
+export default UserOrder;

@@ -1,0 +1,29 @@
+.orderHeader {
+    font-size: 2.9rem;
+    line-height: 21px;
+    font-weight: 300;
+    margin: 20px 0px 15px;
+}
+.supHeader {
+    margin-top: 20px;
+    margin: 24px 0px;
+    cursor: pointer;
+    background: rgb(255, 255, 255);
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    z-index: 10;
+}
+.orderSupNavItem {
+    width: 20%;
+    padding: 12px 0px;
+    text-align: center;
+    font-size: 1.6rem;
+    color: rgb(128, 128, 137);
+    text-decoration: none;
+}
+.active {
+    color: rgb(13, 92, 182);
+    border-bottom: 2px solid rgb(13, 92, 182);
+}

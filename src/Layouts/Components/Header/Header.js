@@ -106,7 +106,7 @@ function Header() {
                                                     </Link>
                                                 </li>
                                                 <li className={cx('userItem')}>
-                                                    <Link to={'/order/notconfirm'} className={cx('userItemText')}>
+                                                    <Link to={'/order/all'} className={cx('userItemText')}>
                                                         Xem đơn hàng
                                                     </Link>
                                                 </li>
