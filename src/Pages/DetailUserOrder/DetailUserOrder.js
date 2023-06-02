@@ -92,7 +92,7 @@ function DetailUserOrder() {
                         </tr>
                     </tfoot>
                 </table>
-                <Button to={'/order/notconfirm'} mt15 bgRed textWhite>
+                <Button to={'/order/all'} mt15 bgRed textWhite>
                     Back
                 </Button>
             </div>

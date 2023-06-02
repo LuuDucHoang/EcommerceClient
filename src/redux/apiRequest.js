@@ -228,3 +228,16 @@ export const getNotConfirmUserOrders = async (id, accessToken, axiosJWT) => {
         return error.response;
     }
 };
+
+export const getConfirmUserOrders = async (id, accessToken, axiosJWT) => {
+    try {
+        const res = await axiosJWT.get(`api/userorder/confirm/${id}`, {
+            headers: { token: `Bearer ${accessToken}` },
+        });
+
+        return res.data;
+    } catch (error) {
+        console.log(error);
+        return error.response;
+    }
+};

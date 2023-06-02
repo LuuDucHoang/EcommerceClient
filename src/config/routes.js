@@ -8,5 +8,6 @@ const routes = {
     checkOrder: '/order/all',
     oderDetail: '/order/user/:_id',
     notConfirmOrder: '/order/notconfirm',
+    confirmOrder: '/order/confirm',
 };
 export default routes;

@@ -14,7 +14,9 @@ function SupNavOrder({ active1 = false, active2 = false, active3 = false, active
                 <Link to={'/order/notconfirm'} className={cx('orderSupNavItem', active2 && { active: 'active' })}>
                     Đơn hàng chưa xác nhận
                 </Link>
-                <Link className={cx('orderSupNavItem', active3 && { active: 'active' })}>Đơn hàng xác nhận</Link>
+                <Link to={'/order/confirm'} className={cx('orderSupNavItem', active3 && { active: 'active' })}>
+                    Đơn hàng xác nhận
+                </Link>
                 <Link className={cx('orderSupNavItem', active4 && { active: 'active' })}>Đơn hàng đã hủy</Link>
             </nav>
         </div>
