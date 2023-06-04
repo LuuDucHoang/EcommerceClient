@@ -1,0 +1,92 @@
+.wrapper {
+    background-color: #f5f5fa;
+}
+.container {
+    display: flex;
+    padding: 90px 0px;
+    width: 1240px;
+    min-height: 900px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.adminNav {
+    list-style: none;
+    background-color: white;
+    width: 300px;
+    height: 300px;
+    margin-right: 17px;
+}
+.napItem {
+}
+.navLink {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    color: rgb(74, 74, 74);
+    padding: 7px 18px;
+    text-decoration: none;
+    &:hover {
+        background-color: rgb(235, 235, 240);
+        color: rgb(0, 0, 0);
+    }
+}
+.icon {
+    margin-right: 10px;
+    width: 24px;
+    height: 24px;
+    margin: 0px 22px 0px 0px;
+    font-size: 24px;
+    color: rgb(155, 155, 155);
+}
+.title {
+    font-size: 1.4rem;
+}
+.content {
+}
+.contentHeader {
+    font-size: 2rem;
+    line-height: 32px;
+    font-weight: 300;
+    margin: 4px 0px 12px;
+}
+.headerTitle {
+}
+.contentBody {
+    width: 973px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 4px;
+    min-height: 400px;
+    padding: 30px 20px;
+}
+.postProductForm {
+    width: 600px;
+}
+
+.formControl {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    margin: 0px 0px 15px;
+}
+.inputLable {
+    display: block;
+    width: 110px;
+    min-width: 110px;
+    font-size: 13px;
+    color: rgb(51, 51, 51);
+}
+.input {
+    display: flex;
+    flex: 1 1 0%;
+    position: relative;
+    z-index: 1;
+}
+.inputValue {
+    border: 1px solid rgb(204, 204, 204);
+    border-radius: 4px;
+    height: 34px;
+    padding: 6px 12px;
+    line-height: 34px;
+    outline: none;
+    flex: 1 1 0%;
+}

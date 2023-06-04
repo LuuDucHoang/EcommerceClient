@@ -116,7 +116,11 @@ function Header() {
                                         <div>{name && <Button>Hi, {name}</Button>}</div>
                                     </HeadlessTippy>
                                 </div>
-
+                                {user?.user.admin === true && (
+                                    <Button className={cx('adminBtn')} to={'/admin'}>
+                                        Quản lý
+                                    </Button>
+                                )}
                                 <Button onClick={handleLogOut} ml5>
                                     Log out
                                 </Button>
