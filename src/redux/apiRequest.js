@@ -22,7 +22,28 @@ export const loginUser = async (user, dispath, navigate) => {
         return error.response.data;
     }
 };
+//product
 
+export const postProduct = async (formData, accessToken, axiosJWT) => {
+    console.log(formData);
+    try {
+        const res = await axiosJWT.post(
+            `api/product`,
+
+            formData,
+
+            {
+                headers: { token: `Bearer ${accessToken}` },
+            },
+        );
+
+        return res.data;
+    } catch (error) {
+        return error.response.data;
+    }
+};
+
+//user
 export const registerUser = async (user, dispath, navigate) => {
     dispath(registerStart());
     try {
