@@ -20,11 +20,11 @@ function AdminNav() {
     return (
         <ul className={cx('adminNav')}>
             <li className={cx('napItem')}>
-                <Link className={cx('navLink')}>
+                <Link to={'/admin'} className={cx('navLink')}>
                     <FontAwesomeIcon className={cx('icon')} icon={faPlus}></FontAwesomeIcon>
                     <span className={cx('title')}>Thêm sản phẩm mới</span>
                 </Link>
-                <Link className={cx('navLink')}>
+                <Link to={'/admin/product'} className={cx('navLink')}>
                     <FontAwesomeIcon className={cx('icon')} icon={faShirt}></FontAwesomeIcon>
                     <span className={cx('title')}>Quản lý sản phẩm</span>
                 </Link>

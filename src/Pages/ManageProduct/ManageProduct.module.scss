@@ -1,0 +1,32 @@
+.wrapper {
+    background-color: #f5f5fa;
+}
+.container {
+    display: flex;
+    padding: 90px 0px;
+    width: 1240px;
+    min-height: 900px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.title {
+    font-size: 1.4rem;
+}
+.content {
+    position: relative;
+}
+.contentHeader {
+    font-size: 2rem;
+    line-height: 32px;
+    font-weight: 300;
+    margin: 4px 0px 12px;
+}
+.contentBody {
+    display: flex;
+    flex-wrap: wrap;
+    width: 973px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 4px;
+    min-height: 400px;
+    padding: 30px 20px;
+}

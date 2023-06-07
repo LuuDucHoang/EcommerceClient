@@ -10,7 +10,8 @@ import UserOrderAll from '~/Pages/UserOrderAll/UserOrderAll';
 import UserOrderNotConfirm from '~/Pages/UserOrderNotConfirm/UserOrderNotConfirm';
 import UserOrderComfirm from '~/Pages/UserOrderComfirm';
 import UserOrderCancel from '~/Pages/UserOrderCancel';
-import Admin from '~/Pages/Admin';
+import Admin from '~/Pages/Admin/Admin';
+import ManageProduct from '~/Pages/ManageProduct';
 const publicRoutes = [
     {
         path: config.routes.home,
@@ -59,6 +60,10 @@ const publicRoutes = [
     {
         path: config.routes.adminPage,
         component: Admin,
+    },
+    {
+        path: config.routes.manageProduct,
+        component: ManageProduct,
     },
 ];
 const privateRoutes = [];
