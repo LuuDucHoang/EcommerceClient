@@ -11,6 +11,6 @@ const routes = {
     confirmOrder: '/order/confirm',
     cancelOrder: '/order/cancel',
     adminPage: '/admin',
-    manageProduct: '/admin/product',
+    manageProduct: '/admin/product/:pages',
 };
 export default routes;

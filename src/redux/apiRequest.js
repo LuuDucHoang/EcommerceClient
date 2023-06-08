@@ -23,9 +23,22 @@ export const loginUser = async (user, dispath, navigate) => {
     }
 };
 //product
+export const getAll = async (page = 1, limit = 10) => {
+    try {
+        const res = await axios.get('api/products/all', {
+            params: {
+                page,
+                limit,
+            },
+        });
+        return res.data;
+    } catch (error) {
+        console.log(error);
+        return error.response;
+    }
+};
 
 export const postProduct = async (formData, accessToken, axiosJWT) => {
-    console.log(formData);
     try {
         const res = await axiosJWT.post(
             `api/product`,

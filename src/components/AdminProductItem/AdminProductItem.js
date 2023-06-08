@@ -9,22 +9,22 @@ function AdminProductItem({ data }) {
     return (
         <div className={cx('wrapperItem')}>
             <Link className={cx('productItem')}>
-                <div className={cx('bb')}>
-                    <img
-                        className={cx('productImage')}
-                        alt="productImage"
-                        src={
-                            'https://salt.tikicdn.com/cache/750x750/ts/product/e4/a3/52/4845a31ebb7c0b75766ef9272506f236.jpg.webp'
-                        }
-                    ></img>
+                <div className={cx('smallWrapper')}>
+                    <div className={cx('bb')}>
+                        <img className={cx('productImage')} alt="productImage" src={data?.image}></img>
+                    </div>
+                    <div className={cx('productInfo')}>
+                        <h3 className={cx('productName')}>{data?.name}</h3>
+                        <span className={cx('productPrice')}>{data?.price} $</span>
+                        <span className={cx('productPrice')}>{data?.brand}</span>
+                    </div>
                 </div>
                 <div className={cx('productDes')}>
-                    <h3 className={cx('productName')}>Tâm Lý Học - Phác Họa Chân Dung Kẻ Phạm Tội</h3>
                     <div className={cx('productDetail')}>
                         <Button textWhite bgRed>
                             Xóa
                         </Button>
-                        <Button bgGreen textWhite>
+                        <Button ml5 bgGreen textWhite>
                             Sửa
                         </Button>
                     </div>

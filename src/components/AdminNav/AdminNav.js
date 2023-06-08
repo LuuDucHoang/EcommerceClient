@@ -17,6 +17,7 @@ import style from './AdminNav.module.scss';
 const cx = classNames.bind(style);
 
 function AdminNav() {
+    let currentPage = 1;
     return (
         <ul className={cx('adminNav')}>
             <li className={cx('napItem')}>
@@ -24,7 +25,7 @@ function AdminNav() {
                     <FontAwesomeIcon className={cx('icon')} icon={faPlus}></FontAwesomeIcon>
                     <span className={cx('title')}>Thêm sản phẩm mới</span>
                 </Link>
-                <Link to={'/admin/product'} className={cx('navLink')}>
+                <Link to={`/admin/product/${currentPage}`} className={cx('navLink')}>
                     <FontAwesomeIcon className={cx('icon')} icon={faShirt}></FontAwesomeIcon>
                     <span className={cx('title')}>Quản lý sản phẩm</span>
                 </Link>
