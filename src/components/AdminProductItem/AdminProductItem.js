@@ -1,11 +1,20 @@
 import classNames from 'classnames/bind';
+
 import { Link } from 'react-router-dom';
 //import component
 import Button from '~/components/Button';
+import ModalUpdateProduct from '../ModalUpdateProduct/ModalUpdateProduct';
 //import style
 import style from './AdminProductItem.module.scss';
+import { useState } from 'react';
 const cx = classNames.bind(style);
 function AdminProductItem({ data }) {
+    const [isOpen, setIsOpen] = useState(false);
+    const [random, setRandom] = useState('');
+    const handleOpen = () => {
+        setRandom(Math.random());
+        setIsOpen(true);
+    };
     return (
         <div className={cx('wrapperItem')}>
             <Link className={cx('productItem')}>
@@ -24,12 +33,13 @@ function AdminProductItem({ data }) {
                         <Button textWhite bgRed>
                             Xóa
                         </Button>
-                        <Button ml5 bgGreen textWhite>
+                        <Button onClick={handleOpen} ml5 bgGreen textWhite>
                             Sửa
                         </Button>
                     </div>
                 </div>
             </Link>
+            <ModalUpdateProduct data={data} isOpen={isOpen} random={random}></ModalUpdateProduct>
         </div>
     );
 }
