@@ -29,7 +29,7 @@ function AdminNav() {
                     <FontAwesomeIcon className={cx('icon')} icon={faShirt}></FontAwesomeIcon>
                     <span className={cx('title')}>Quản lý sản phẩm</span>
                 </Link>
-                <Link className={cx('navLink')}>
+                <Link to={'/admin/product/deleted/1'} className={cx('navLink')}>
                     <FontAwesomeIcon className={cx('icon')} icon={faShopSlash}></FontAwesomeIcon>
                     <span className={cx('title')}>Quản lý bị xoá sản phẩm</span>
                 </Link>

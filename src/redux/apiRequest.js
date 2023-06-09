@@ -23,6 +23,55 @@ export const loginUser = async (user, dispath, navigate) => {
     }
 };
 //product
+export const removeDeletedProduct = async (id, accessToken, axiosJWT) => {
+    try {
+        const res = await axiosJWT.delete(`api/product/remove/${id}`, {
+            headers: { token: `Bearer ${accessToken}` },
+        });
+        return res.data;
+    } catch (error) {
+        console.log(error);
+        return error.response;
+    }
+};
+export const restoreAndUpdateProduct = async (id, formData, accessToken, axiosJWT) => {
+    try {
+        const res = await axiosJWT.put(`api/product/restore/update/${id}`, formData, {
+            headers: { token: `Bearer ${accessToken}` },
+        });
+        return res.data;
+    } catch (error) {
+        console.log(error);
+        return error.response;
+    }
+};
+export const getDeletedProduct = async (page = 1, limit = 10, accessToken, axiosJWT) => {
+    try {
+        const res = await axiosJWT.get('api/product/get/deleted', {
+            params: {
+                page,
+                limit,
+            },
+            headers: { token: `Bearer ${accessToken}` },
+        });
+        return res.data;
+    } catch (error) {
+        console.log(error);
+        return error.response;
+    }
+};
+
+export const deleteProduct = async (id, accessToken, axiosJWT) => {
+    try {
+        const res = await axiosJWT.delete(`api/product/delete/${id}`, {
+            headers: { token: `Bearer ${accessToken}` },
+        });
+        return res.data;
+    } catch (error) {
+        console.log(error);
+        return error.response;
+    }
+};
 export const updateProduct = async (id, formData, accessToken, axiosJWT) => {
     try {
         const res = await axiosJWT.put(`api/product/update/${id}`, formData, {

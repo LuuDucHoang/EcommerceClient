@@ -1,18 +1,18 @@
 import classNames from 'classnames/bind';
-
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 //import component
 import Button from '~/components/Button';
 import { createAxios } from '~/utils/createInstamce';
 import { loginSuccess } from '~/redux/authSlice';
-import { updateProduct } from '~/redux/apiRequest';
+import { updateProduct, restoreAndUpdateProduct } from '~/redux/apiRequest';
 
 //import style,img
 import style from './ModalUpdateProduct.module.scss';
 const cx = classNames.bind(style);
 
-function ModalUpdateProduct({ isOpen, data, title, random }) {
+function ModalUpdateProduct({ isOpen, data, title, random, btnSuccess, restore }) {
     const [open, setOpen] = useState(isOpen);
     const wrapper = useRef();
     const modal = useRef();
@@ -25,6 +25,7 @@ function ModalUpdateProduct({ isOpen, data, title, random }) {
         setOpen(isOpen);
     }, [isOpen, random]);
     const dispath = useDispatch();
+    const navigate = useNavigate();
     const user = useSelector((state) => state.auth.login.currentUser);
     const accessToken = user?.accessToken;
     let axiosJWT = createAxios(user, dispath, loginSuccess);
@@ -74,7 +75,7 @@ function ModalUpdateProduct({ isOpen, data, title, random }) {
         }
         return count;
     };
-    const hanlePost = async (id, image) => {
+    const hanlePost = async (id) => {
         setNameErr('');
         setSizeErr('');
         setFileErr('');
@@ -92,6 +93,11 @@ function ModalUpdateProduct({ isOpen, data, title, random }) {
             formData.append('size', size);
             formData.append('type', type);
             formData.append('description', description);
+            if (restore) {
+                await restoreAndUpdateProduct(id, formData, accessToken, axiosJWT);
+                navigate('/admin/product/1');
+                return;
+            }
             await updateProduct(id, formData, accessToken, axiosJWT);
         }
     };
@@ -258,7 +264,7 @@ function ModalUpdateProduct({ isOpen, data, title, random }) {
                                     Đóng
                                 </Button>
                                 <Button ml5 onClick={() => hanlePost(data?._id, data?.image)} bgGreen textWhite>
-                                    Cập nhật
+                                    {btnSuccess ? btnSuccess : 'Cập nhật'}
                                 </Button>
                             </div>
                         </div>

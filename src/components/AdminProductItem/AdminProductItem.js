@@ -1,16 +1,33 @@
 import classNames from 'classnames/bind';
-
-import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 //import component
 import Button from '~/components/Button';
 import ModalUpdateProduct from '../ModalUpdateProduct/ModalUpdateProduct';
+import { createAxios } from '~/utils/createInstamce';
+import { loginSuccess } from '~/redux/authSlice';
+import { deleteProduct, removeDeletedProduct } from '~/redux/apiRequest';
+
 //import style
 import style from './AdminProductItem.module.scss';
 import { useState } from 'react';
 const cx = classNames.bind(style);
-function AdminProductItem({ data }) {
+function AdminProductItem({ data, btnSuccess, restore, remove }) {
+    const dispath = useDispatch();
+    const navigate = useNavigate();
+    const user = useSelector((state) => state.auth.login.currentUser);
+    const accessToken = user?.accessToken;
+    let axiosJWT = createAxios(user, dispath, loginSuccess);
     const [isOpen, setIsOpen] = useState(false);
     const [random, setRandom] = useState('');
+    const handleDelete = async (id) => {
+        if (remove) {
+            await removeDeletedProduct(id, accessToken, axiosJWT);
+            window.location.reload();
+        }
+        await deleteProduct(id, accessToken, axiosJWT);
+        navigate('/admin/product/deleted/1');
+    };
     const handleOpen = () => {
         setRandom(Math.random());
         setIsOpen(true);
@@ -30,16 +47,22 @@ function AdminProductItem({ data }) {
                 </div>
                 <div className={cx('productDes')}>
                     <div className={cx('productDetail')}>
-                        <Button textWhite bgRed>
+                        <Button onClick={() => handleDelete(data?._id)} textWhite bgRed>
                             Xóa
                         </Button>
                         <Button onClick={handleOpen} ml5 bgGreen textWhite>
-                            Sửa
+                            {btnSuccess ? btnSuccess : 'Sửa'}
                         </Button>
                     </div>
                 </div>
             </Link>
-            <ModalUpdateProduct data={data} isOpen={isOpen} random={random}></ModalUpdateProduct>
+            <ModalUpdateProduct
+                data={data}
+                restore={restore}
+                btnSuccess={btnSuccess}
+                isOpen={isOpen}
+                random={random}
+            ></ModalUpdateProduct>
         </div>
     );
 }

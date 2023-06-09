@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 //import component
 import { postProduct } from '~/redux/apiRequest';
@@ -81,6 +81,7 @@ function Admin() {
             formData.append('description', description);
             const a = await postProduct(formData, accessToken, axiosJWT);
             console.log(a);
+            navigate('/admin/product/1');
         }
     };
     return (
