@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Button from '~/components/Button';
 import { createAxios } from '~/utils/createInstamce';
 import { loginSuccess } from '~/redux/authSlice';
-import { postProduct } from '~/redux/apiRequest';
+import { updateProduct } from '~/redux/apiRequest';
 
 //import style,img
 import style from './ModalUpdateProduct.module.scss';
@@ -29,25 +29,25 @@ function ModalUpdateProduct({ isOpen, data, title, random }) {
     const accessToken = user?.accessToken;
     let axiosJWT = createAxios(user, dispath, loginSuccess);
     const admin = user?.user.admin;
-    const [name, setName] = useState('');
+    const [name, setName] = useState(data?.name);
     const [nameErr, setNameErr] = useState('');
-    const [price, setPrice] = useState('');
+    const [price, setPrice] = useState(data?.price);
     const [priceErr, setPriceErr] = useState('');
-    const [status, setStatus] = useState('Available');
-    const [brand, setBrand] = useState('');
-    const [size, setSize] = useState('');
+    const [status, setStatus] = useState(data?.status);
+    const [brand, setBrand] = useState(data?.brand);
+    const [size, setSize] = useState(data?.size);
     const [sizeErr, setSizeErr] = useState('');
-    const [files, setFiles] = useState('');
+    const [files, setFiles] = useState(data?.image);
     const [fileErr, setFileErr] = useState('');
-    const [type, setType] = useState('shoes');
-    const [description, setDescription] = useState('');
+    const [type, setType] = useState(data?.type);
+    const [description, setDescription] = useState(data?.description);
     const [isAdmin, setIsAdmin] = useState('');
     const handleFile = (e) => {
         if (!e.target.value.match(/\.(jpg|jpeg|png|gif)$/)) {
             setFileErr('File ảnh không hợp lệ');
             return '';
         } else {
-            setFiles(e.target.files[0]);
+            setFiles(e.target.files);
         }
     };
     const check = () => {
@@ -61,7 +61,7 @@ function ModalUpdateProduct({ isOpen, data, title, random }) {
             count++;
         }
         if (!files) {
-            setFileErr('Vui lòng chọn file');
+            setFiles(data?.image);
             count++;
         }
         if (!size || isNaN(size)) {
@@ -74,7 +74,7 @@ function ModalUpdateProduct({ isOpen, data, title, random }) {
         }
         return count;
     };
-    const hanlePost = async () => {
+    const hanlePost = async (id, image) => {
         setNameErr('');
         setSizeErr('');
         setFileErr('');
@@ -82,7 +82,9 @@ function ModalUpdateProduct({ isOpen, data, title, random }) {
         const count = check();
         if (count === 0) {
             const formData = new FormData();
-            formData.append('image', files);
+            if (files) {
+                formData.append('image', files[0]);
+            }
             formData.append('name', name);
             formData.append('price', price);
             formData.append('status', status);
@@ -90,8 +92,7 @@ function ModalUpdateProduct({ isOpen, data, title, random }) {
             formData.append('size', size);
             formData.append('type', type);
             formData.append('description', description);
-            const a = await postProduct(formData, accessToken, axiosJWT);
-            console.log(a);
+            await updateProduct(id, formData, accessToken, axiosJWT);
         }
     };
 
@@ -118,7 +119,7 @@ function ModalUpdateProduct({ isOpen, data, title, random }) {
                                     </label>
                                     <div className={cx('input')}>
                                         <input
-                                            value={data?.name}
+                                            value={name}
                                             onChange={(e) => setName(e.target.value)}
                                             type="text"
                                             className={cx('inputValue')}
@@ -134,7 +135,7 @@ function ModalUpdateProduct({ isOpen, data, title, random }) {
                                     </label>
                                     <div className={cx('input')}>
                                         <input
-                                            value={data?.price}
+                                            value={price}
                                             onChange={(e) => setPrice(e.target.value)}
                                             type="text"
                                             className={cx('inputValue')}
@@ -150,7 +151,7 @@ function ModalUpdateProduct({ isOpen, data, title, random }) {
                                     </label>
                                     <div className={cx('input')}>
                                         <select
-                                            value={data?.status}
+                                            value={status}
                                             onChange={(e) => setStatus(e.target.value)}
                                             required
                                             className={cx('select')}
@@ -170,7 +171,7 @@ function ModalUpdateProduct({ isOpen, data, title, random }) {
                                     </label>
                                     <div className={cx('input')}>
                                         <input
-                                            value={data?.brand}
+                                            value={brand}
                                             onChange={(e) => setBrand(e.target.value)}
                                             type="text"
                                             className={cx('inputValue')}
@@ -186,7 +187,7 @@ function ModalUpdateProduct({ isOpen, data, title, random }) {
                                     <div className={cx('input')}>
                                         <input
                                             type="text"
-                                            value={data?.size}
+                                            value={size}
                                             onChange={(e) => setSize(e.target.value)}
                                             className={cx('inputValue')}
                                             placeholder="Nhập size của sản phẩm"
@@ -201,7 +202,7 @@ function ModalUpdateProduct({ isOpen, data, title, random }) {
                                     </label>
                                     <div className={cx('input')}>
                                         <input
-                                            value={files}
+                                            value={files?.name}
                                             onChange={(e) => {
                                                 handleFile(e);
                                             }}
@@ -219,7 +220,7 @@ function ModalUpdateProduct({ isOpen, data, title, random }) {
                                     </label>
                                     <div className={cx('input')}>
                                         <select
-                                            value={data?.type}
+                                            value={type}
                                             onChange={(e) => setType(e.target.value)}
                                             required
                                             className={cx('select')}
@@ -242,7 +243,7 @@ function ModalUpdateProduct({ isOpen, data, title, random }) {
                                     </label>
                                     <div className={cx('input')}>
                                         <textarea
-                                            value={data?.description}
+                                            value={description}
                                             onChange={(e) => setDescription(e.target.value)}
                                             className={cx('textArea')}
                                             placeholder="Nhập mô tả sản phẩm"
@@ -256,7 +257,7 @@ function ModalUpdateProduct({ isOpen, data, title, random }) {
                                 <Button onClick={() => setOpen(false)} textWhite bgRed>
                                     Đóng
                                 </Button>
-                                <Button ml5 onClick={hanlePost} bgGreen textWhite>
+                                <Button ml5 onClick={() => hanlePost(data?._id, data?.image)} bgGreen textWhite>
                                     Cập nhật
                                 </Button>
                             </div>
