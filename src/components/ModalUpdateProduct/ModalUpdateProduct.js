@@ -86,6 +86,7 @@ function ModalUpdateProduct({ isOpen, data, title, random, btnSuccess, restore }
             if (files) {
                 formData.append('image', files[0]);
             }
+
             formData.append('name', name);
             formData.append('price', price);
             formData.append('status', status);
@@ -94,11 +95,15 @@ function ModalUpdateProduct({ isOpen, data, title, random, btnSuccess, restore }
             formData.append('type', type);
             formData.append('description', description);
             if (restore) {
-                await restoreAndUpdateProduct(id, formData, accessToken, axiosJWT);
-                navigate('/admin/product/1');
+                const x = await restoreAndUpdateProduct(id, formData, accessToken, axiosJWT);
+                if (!x.message) {
+                    navigate('/admin/product/1');
+                }
                 return;
             }
-            await updateProduct(id, formData, accessToken, axiosJWT);
+
+            const x = await updateProduct(id, formData, accessToken, axiosJWT);
+            console.log(x);
         }
     };
 
